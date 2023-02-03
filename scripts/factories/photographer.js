@@ -10,7 +10,7 @@ function photographerFactory(data) {
     photographerCard.classList.add("photographer");
     const photographer = `
       <a href="/photographer.html?id=${id}" title="Voir la fiche" class="photographer__link">
-        <img src="${picture}" class="photographer__img" alt="">
+        <img src="${picture}" class="photographer__img" alt="Avatar de ${name}">
         <h2 class="photographer__name">${name}</h2>
       </a>
       <address class="photographer__address">${address}</address>
