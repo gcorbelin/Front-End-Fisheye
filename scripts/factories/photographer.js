@@ -24,7 +24,7 @@ function photographerFactory(data) {
 
   function getUserHeaderDOM() {
     const photographerHeader = document.createElement("div");
-    photographerHeader.classList.add("photograph-header__wrapper");
+    photographerHeader.classList.add("header");
     const photographer = `
     <div class="header__infos">
       <h1 class="header__name photographer__name">${name}</h1>

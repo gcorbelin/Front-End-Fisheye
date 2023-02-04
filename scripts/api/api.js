@@ -21,3 +21,12 @@ async function getMedias() {
   const { media } = await getDataFromJSON();
   return media;
 }
+
+async function getMediaByPhotographerId(photographerId) {
+  const medias = await getMedias();
+  const photographerMedias = medias.filter(
+    (media) => media.photographerId === parseInt(photographerId, 10)
+  );
+
+  return photographerMedias;
+}
