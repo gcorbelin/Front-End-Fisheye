@@ -23,26 +23,32 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" alt="FishEye Logo" />
+      <div class="container">
+        <img src="assets/images/logo.png" class="logo" alt="FishEye Logo" />
+      </div>
     </header>
     <main id="main">
-      <div class="photographer-header"></div>
-      <div class="photographer-medias"></div>
-      <div class="photographer-details"></div>
+      <div class="container">
+        <div class="photographer-header"></div>
+        <div class="photographer-medias"></div>
+        <div class="photographer-details"></div>
+      </div>
     </main>
-    <div id="contact_modal">
-      <div class="modal">
-        <header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-        <form>
-          <div>
-            <label>Prénom</label>
-            <input />
-          </div>
-          <button class="contact_button">Envoyer</button>
-        </form>
+    <div id="contact_modal" class="modal hide">
+      <div class="modal__wrapper">
+        <div class="modal__body">
+          <header class="modal__header">
+            <h2>Contactez-moi</h2>
+            <img src="assets/icons/close.svg" onclick="closeModal()" />
+          </header>
+          <form>
+            <div>
+              <label>Prénom</label>
+              <input />
+            </div>
+            <button class="contact_button">Envoyer</button>
+          </form>
+        </div>
       </div>
     </div>
     <script src="/scripts/api/api.js"></script>

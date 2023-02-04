@@ -1,13 +1,9 @@
-#contact_modal {
-  display: none;
-}
-
+/* Photographer header with name, contact button and avatar */
 .photographer-header {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fafafa;
-  margin: 0 6.94%;
   padding: 50px;
 }
 
@@ -37,10 +33,10 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px 7.66%;
   align-items: flex-start;
-  margin: 0 6.94%;
   padding: 100px 0;
 }
 
+/* Photographer's medias */
 .media {
   width: 100%;
 }
@@ -73,6 +69,7 @@
   color: #901c1c;
 }
 
+/* Fiexed photographers infos */
 .details {
   position: fixed;
   bottom: 0;
@@ -90,28 +87,81 @@
   font-weight: 500;
 }
 
+/* Contact modal */
+body.modal-opened {
+  overflow: hidden;
+}
+
 .modal {
-  border-radius: 5px;
-  background-color: #db8876;
-  width: 50%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(196, 196, 196, 0.4);
+}
+
+.modal__wrapper {
+  position: relative;
+  width: 86.12%;
+  max-width: 670px;
+  margin: 5% auto;
+  overflow-y: hidden;
+
+  animation-name: modalopen;
+  animation-duration: 400ms;
+  animation-fill-mode: forwards;
+}
+
+.modal__wrapper.closing {
+  animation-name: modalclose;
+}
+
+.modal__body {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 35px;
-  margin: auto;
+  padding: 15px 35px 35px;
+  border-radius: 5px;
+  background-color: #db8876;
+  overflow-y: auto;
 }
 
-.modal header {
+/* Modal animations */
+@keyframes modalopen {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalclose {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+}
+
+.modal__header {
   justify-content: space-between;
   width: 100%;
 }
 
-.modal header img {
+.modal__header img {
   cursor: pointer;
 }
 
-.modal header h2 {
+.modal__header h2 {
   font-size: 64px;
   font-weight: normal;
   text-align: center;
@@ -142,4 +192,17 @@ form input {
   height: 68px;
   border: none;
   border-radius: 5px;
+}
+
+/* Utils */
+.show {
+  transition: opacity 400ms;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.d-none {
+  display: none;
 }
