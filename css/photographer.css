@@ -157,7 +157,12 @@ body.modal-opened {
   width: 100%;
 }
 
-.modal__header img {
+.modal__close {
+  padding: 11px;
+  border: 0;
+  background: none;
+  color: #fff;
+  font-size: 42px;
   cursor: pointer;
 }
 
@@ -167,31 +172,49 @@ body.modal-opened {
   text-align: center;
 }
 
-form {
+.form {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
 }
 
-form label {
+.form__label {
   color: #312e2e;
   font-size: 36px;
+  line-height: 1.2;
 }
 
-form div {
+.form__group {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: self-start;
-  margin-bottom: 26px;
+  margin-bottom: 10px;
 }
 
-form input {
+.form__input {
   width: 100%;
   height: 68px;
+  padding: 12px;
   border: none;
   border-radius: 5px;
+  font-size: 24px;
+}
+
+.form__input--textarea {
+  height: auto;
+}
+
+.form__btn {
+  margin-top: 26px;
+  padding: 22px 50px;
+  border-radius: 5px;
+  border: 0;
+  background-color: #901c1c;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
 }
 
 /* Utils */

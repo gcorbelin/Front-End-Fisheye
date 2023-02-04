@@ -39,14 +39,55 @@
         <div class="modal__body">
           <header class="modal__header">
             <h2>Contactez-moi</h2>
-            <img src="assets/icons/close.svg" onclick="closeModal()" />
+            <button
+              type="button"
+              class="modal__close"
+              title="Fermer"
+              onclick="closeModal()"
+            >
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
           </header>
-          <form>
-            <div>
-              <label>Prénom</label>
-              <input />
+          <form class="form">
+            <div class="form__group">
+              <label class="form__label" for="form-firstname">Prénom</label>
+              <input
+                type="text"
+                name="form-firstname"
+                id="form-firstname"
+                class="form__input"
+              />
             </div>
-            <button class="contact_button">Envoyer</button>
+            <div class="form__group">
+              <label class="form__label" for="form-lastname">Nom</label>
+              <input
+                type="text"
+                name="form-lastname"
+                id="form-lastname"
+                class="form__input"
+              />
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="form-email">Email</label>
+              <input
+                type="text"
+                name="form-email"
+                id="form-email"
+                class="form__input"
+              />
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="form-message"
+                >Votre message</label
+              >
+              <textarea
+                name="form-message"
+                id="form-message"
+                class="form__input form__input--textarea"
+                rows="6"
+              ></textarea>
+            </div>
+            <button type="submit" class="form__btn">Envoyer</button>
           </form>
         </div>
       </div>
