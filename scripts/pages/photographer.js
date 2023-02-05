@@ -1,11 +1,11 @@
-/* global photographerFactory getPhotographerById displayModal mediaFactory getMediaByPhotographerId */
+/* global photographerHeaderFactory photographerDetailsFactory getPhotographerById displayModal mediaFactory getMediaByPhotographerId */
 
 const currentUrl = new URL(window.location.href);
 const photographerId = currentUrl.searchParams.get("id");
 
 function displayHeader(photographer) {
   const headerSection = document.querySelector(".photographer-header");
-  const photographerModel = photographerFactory(photographer);
+  const photographerModel = photographerHeaderFactory(photographer);
   const userHeaderDOM = photographerModel.getUserHeaderDOM();
   headerSection.appendChild(userHeaderDOM);
 
@@ -28,7 +28,7 @@ function displayMedias(medias, photographer) {
 
 function displayDetails(medias, photographer) {
   const detailSection = document.querySelector(".photographer-details");
-  const photographerModel = photographerFactory(photographer);
+  const photographerModel = photographerDetailsFactory(photographer);
   const detailsDOM = photographerModel.getUserDetailsDOM();
   detailSection.appendChild(detailsDOM);
 
