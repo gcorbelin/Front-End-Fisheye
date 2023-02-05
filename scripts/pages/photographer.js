@@ -1,4 +1,4 @@
-/* global photographerHeaderFactory photographerDetailsFactory getPhotographerById displayModal mediaFactory getMediaByPhotographerId */
+/* global photographerHeaderFactory photographerDetailsFactory getPhotographerById mediaFactory modalFactory getMediaByPhotographerId */
 
 const currentUrl = new URL(window.location.href);
 const photographerId = currentUrl.searchParams.get("id");
@@ -8,12 +8,6 @@ function displayHeader(photographer) {
   const photographerModel = photographerHeaderFactory(photographer);
   const userHeaderDOM = photographerModel.getUserHeaderDOM();
   headerSection.appendChild(userHeaderDOM);
-
-  const contactButton = document.querySelector(".header__contact-btn");
-  contactButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    displayModal(contactButton);
-  });
 }
 
 function displayMedias(medias, photographer) {
@@ -44,10 +38,17 @@ async function init() {
   // Récupère les datas du photographe
   const photographer = await getPhotographerById(photographerId);
   const medias = await getMediaByPhotographerId(photographerId);
+  const modalModel = modalFactory(photographer);
 
   displayHeader(photographer);
   displayMedias(medias, photographer);
   displayDetails(medias, photographer);
+
+  const contactButton = document.querySelector(".header__contact-btn");
+  contactButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    modalModel.displayModal(contactButton);
+  });
 }
 
 init();
