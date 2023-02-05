@@ -12,7 +12,7 @@ function displayHeader(photographer) {
   const contactButton = document.querySelector(".header__contact-btn");
   contactButton.addEventListener("click", (event) => {
     event.preventDefault();
-    displayModal();
+    displayModal(contactButton);
   });
 }
 

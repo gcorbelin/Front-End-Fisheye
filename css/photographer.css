@@ -92,32 +92,33 @@ body.modal-opened {
   overflow: hidden;
 }
 
-.modal {
+.overlay {
   display: none;
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
-  height: 100%;
-  width: 100%;
+  bottom: 0;
+  right: 0;
   overflow: auto;
   background-color: rgba(196, 196, 196, 0.4);
 }
 
 .modal__wrapper {
-  position: relative;
+  display: none;
+  position: fixed;
+  top: 5%;
+  left: 0;
+  right: 0;
   width: 86.12%;
   max-width: 670px;
-  margin: 5% auto;
-  overflow-y: hidden;
-
-  animation-name: modalopen;
-  animation-duration: 400ms;
-  animation-fill-mode: forwards;
-}
-
-.modal__wrapper.closing {
-  animation-name: modalclose;
+  height: 100%;
+  max-height: 90%;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  z-index: 2;
 }
 
 .modal__body {
@@ -125,6 +126,7 @@ body.modal-opened {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
   padding: 15px 35px 35px;
   border-radius: 5px;
   background-color: #db8876;
@@ -218,14 +220,13 @@ body.modal-opened {
 }
 
 /* Utils */
-.show {
-  transition: opacity 400ms;
-}
-
-.hide {
-  opacity: 0;
-}
-
-.d-none {
-  display: none;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

@@ -22,76 +22,91 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <header>
-      <div class="container">
-        <img src="assets/images/logo.png" class="logo" alt="FishEye Logo" />
-      </div>
-    </header>
-    <main id="main">
-      <div class="container">
-        <div class="photographer-header"></div>
-        <div class="photographer-medias"></div>
-        <div class="photographer-details"></div>
-      </div>
-    </main>
-    <div id="contact_modal" class="modal hide">
-      <div class="modal__wrapper">
-        <div class="modal__body">
-          <header class="modal__header">
-            <h2>Contactez-moi</h2>
-            <button
-              type="button"
-              class="modal__close"
-              title="Fermer"
-              onclick="closeModal()"
-            >
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </button>
-          </header>
-          <form class="form">
-            <div class="form__group">
-              <label class="form__label" for="form-firstname">Prénom</label>
-              <input
-                type="text"
-                name="form-firstname"
-                id="form-firstname"
-                class="form__input"
-              />
-            </div>
-            <div class="form__group">
-              <label class="form__label" for="form-lastname">Nom</label>
-              <input
-                type="text"
-                name="form-lastname"
-                id="form-lastname"
-                class="form__input"
-              />
-            </div>
-            <div class="form__group">
-              <label class="form__label" for="form-email">Email</label>
-              <input
-                type="text"
-                name="form-email"
-                id="form-email"
-                class="form__input"
-              />
-            </div>
-            <div class="form__group">
-              <label class="form__label" for="form-message"
-                >Votre message</label
-              >
-              <textarea
-                name="form-message"
-                id="form-message"
-                class="form__input form__input--textarea"
-                rows="6"
-              ></textarea>
-            </div>
-            <button type="submit" class="form__btn">Envoyer</button>
-          </form>
+    <div id="js-modal-page">
+      <header>
+        <div class="container">
+          <a href="/" title="Retour à l'accueil">
+            <img src="assets/images/logo.png" class="logo" alt="FishEye Logo" />
+          </a>
         </div>
-      </div>
+      </header>
+      <main id="main">
+        <div class="container">
+          <div class="photographer-header"></div>
+          <div class="photographer-medias"></div>
+          <div class="photographer-details"></div>
+        </div>
+      </main>
     </div>
+    <div
+      id="js-modal-overlay"
+      class="overlay"
+      title="Fermer"
+      data-close="modal"
+    >
+      <div class="sr-only">Fermer</div>
+    </div>
+    <dialog
+      id="js-modal"
+      role="dialog"
+      aria-labelledby="modal-header"
+      aria-modal="false"
+      class="modal__wrapper"
+      aria-hidden="true"
+    >
+      <div role="document" class="modal__body">
+        <header class="modal__header">
+          <h2 id="modal-header">Contactez-moi</h2>
+          <button
+            type="button"
+            class="modal__close"
+            title="Fermer"
+            data-close="modal"
+          >
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </header>
+        <form class="form" onsubmit="validate(event);">
+          <div class="form__group">
+            <label class="form__label" for="form-firstname">Prénom</label>
+            <input
+              type="text"
+              name="form-firstname"
+              id="form-firstname"
+              class="form__input"
+            />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="form-lastname">Nom</label>
+            <input
+              type="text"
+              name="form-lastname"
+              id="form-lastname"
+              class="form__input"
+            />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="form-email">Email</label>
+            <input
+              type="text"
+              name="form-email"
+              id="form-email"
+              class="form__input"
+            />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="form-message">Votre message</label>
+            <textarea
+              name="form-message"
+              id="form-message"
+              class="form__input form__input--textarea"
+              rows="6"
+            ></textarea>
+          </div>
+          <button type="submit" class="form__btn">Envoyer</button>
+        </form>
+      </div>
+    </dialog>
     <script src="/scripts/api/api.js"></script>
     <script src="/scripts/factories/photographer.js"></script>
     <script src="/scripts/factories/media.js"></script>

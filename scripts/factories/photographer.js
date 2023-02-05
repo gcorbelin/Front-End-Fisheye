@@ -32,7 +32,7 @@ function photographerFactory(data) {
       <blockquote class="header__quote photographer__quote">${tagline}</blockquote>
     </div>
     <div class="header__contact">
-      <button class="header__contact-btn">
+      <button class="header__contact-btn" data-open="modal">
         Contactez-moi
       </button>
     </div>
