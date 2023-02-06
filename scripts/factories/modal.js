@@ -1,23 +1,38 @@
-/* global getKeyboardFocusableElements */
+/* global getKeyboardFocusableElements setFocusTrap */
 
 function modalFactory(photographer) {
   const { name } = photographer;
 
   const { body } = document;
   const content = document.getElementById("js-modal-page");
-  const modalWrapper = document.getElementById("js-modal");
-  const overlay = document.getElementById("js-modal-overlay");
   const lastOpener = [];
+
+  let isModalOpened = false;
 
   /**
    * Hide modal
    */
   function closeModal() {
-    // Hide modal
-    modalWrapper.setAttribute("aria-hidden", true);
-    modalWrapper.style.display = "none";
-    // Hide overlay
-    overlay.style.display = "none";
+    isModalOpened = false;
+
+    // Remove keyboard listener
+    document.removeEventListener("keydown", keyDownEvent);
+
+    // Remove Modal from DOM
+    const overlay = document.getElementById("js-modal-overlay");
+    const modalWrapper = document.getElementById("js-modal");
+    if (overlay) {
+      window.setTimeout(() => {
+        overlay.remove();
+      }, 400);
+    }
+    if (modalWrapper) {
+      modalWrapper.classList.add("closing");
+      window.setTimeout(() => {
+        modalWrapper.remove();
+      }, 800);
+    }
+
     // Revert body's state
     body.classList.remove("modal-opened");
     // Set content accessible to screen readers
@@ -25,7 +40,35 @@ function modalFactory(photographer) {
     // Set focus back to last opener
     lastOpener[lastOpener.length - 1].focus();
     lastOpener.pop();
-    modalWrapper.querySelector(".modal__body").remove();
+  }
+
+  /**
+   * Handle keyboard input
+   * @param event
+   */
+  function keyDownEvent(event, scope) {
+    if (isModalOpened) {
+      // Get key pressed
+      let keyCode;
+      if (event.key !== undefined) {
+        keyCode = event.key;
+      } else if (event.keyIdentifier !== undefined) {
+        keyCode = event.keyIdentifier;
+      } else if (event.keyCode !== undefined) {
+        keyCode = event.keyCode;
+      }
+
+      // If modal is opened
+      if (scope) {
+        // Close modal when escape key is pressed
+        if (keyCode === "Escape") {
+          closeModal();
+        }
+      }
+
+      // Set focus trap
+      setFocusTrap(event, scope);
+    }
   }
 
   /**
@@ -49,51 +92,6 @@ function modalFactory(photographer) {
   }
 
   /**
-   * Handle keyboard input
-   */
-  function handleKeyDown() {
-    // Listen to key press
-    document.addEventListener("keydown", (event) => {
-      let keyCode;
-      if (event.key !== undefined) {
-        keyCode = event.key;
-      } else if (event.keyIdentifier !== undefined) {
-        keyCode = event.keyIdentifier;
-      } else if (event.keyCode !== undefined) {
-        keyCode = event.keyCode;
-      }
-
-      const focusableElements = getKeyboardFocusableElements(modalWrapper);
-      const firstFocusableElement = focusableElements[0];
-      const lastFocusableElement =
-        focusableElements[focusableElements.length - 1];
-
-      // If modal is opened
-      if (modalWrapper.getAttribute("aria-hidden") === "false") {
-        // Close modal when escape key is pressed
-        if (keyCode === "Escape") {
-          closeModal();
-        }
-
-        if (keyCode === "Tab") {
-          if (event.shiftKey) {
-            // Shift + TAB
-            if (document.activeElement === firstFocusableElement) {
-              // Go back to last focusable element
-              lastFocusableElement.focus();
-              event.preventDefault();
-            }
-          } else if (document.activeElement === lastFocusableElement) {
-            // Go back to first focusable element
-            firstFocusableElement.focus();
-            event.preventDefault();
-          }
-        }
-      }
-    });
-  }
-
-  /**
    * Show modal
    * @param {HTMLElement} opener HTML Element that tgriggered the opening
    */
@@ -102,17 +100,24 @@ function modalFactory(photographer) {
     body.classList.add("modal-opened");
     // Prevent screen readers from reading everthing else than the modal
     content.setAttribute("aria-hidden", true);
-    // Show overlay
-    overlay.style.display = "block";
-    // Show modal
-    modalWrapper.style.display = "block";
-    modalWrapper.setAttribute("aria-hidden", false);
     // Save modalOpener
     lastOpener.push(opener);
 
-    const modal = document.createElement("div");
-    modal.classList.add("modal__body");
-    modal.setAttribute("role", "document");
+    // Create modal overlay
+    const modalOverlay = document.createElement("div");
+    modalOverlay.setAttribute("id", "js-modal-overlay");
+    modalOverlay.setAttribute("title", "Fermer");
+    modalOverlay.setAttribute("data-close", "modal");
+    modalOverlay.classList.add("overlay");
+    modalOverlay.innerHTML = '<div class="sr-only">Fermer</div>';
+
+    // Create modal
+    const modal = document.createElement("dialog");
+    modal.setAttribute("id", "js-modal");
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-labelledby", "modal-header");
+    modal.setAttribute("aria-modal", true);
+    modal.classList.add("modal__wrapper");
 
     const modalHeader = `
       <header class="modal__header">
@@ -169,10 +174,20 @@ function modalFactory(photographer) {
       </form>
     `;
 
-    const modalContent = modalHeader + modalBody;
+    const modalContent = `
+      <div class="modal__body" role="document">
+        ${modalHeader + modalBody}
+      </div>
+    `;
     modal.innerHTML = modalContent;
 
-    modalWrapper.appendChild(modal);
+    // Append Modal Overlay
+    body.appendChild(modalOverlay);
+    // Append Modal
+    body.appendChild(modal);
+
+    // Get Modal wrapper
+    const modalWrapper = document.querySelector(".modal__wrapper");
 
     // Form submission
     modal.querySelector("form").addEventListener("submit", (event) => {
@@ -192,7 +207,12 @@ function modalFactory(photographer) {
       });
     });
 
-    handleKeyDown();
+    // Listen to key press
+    document.addEventListener("keydown", (event) =>
+      keyDownEvent(event, modalWrapper)
+    );
+
+    isModalOpened = true;
   }
 
   return { displayModal, closeModal };

@@ -93,19 +93,18 @@ body.modal-opened {
 }
 
 .overlay {
-  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
-  overflow: auto;
   background-color: rgba(196, 196, 196, 0.4);
+  overflow: auto;
 }
 
 .modal__wrapper {
-  display: none;
+  display: block;
   position: fixed;
   top: 5%;
   left: 0;
@@ -120,6 +119,14 @@ body.modal-opened {
   border-radius: 5px;
   overflow: hidden;
   z-index: 2;
+
+  animation-name: modalopen;
+  animation-duration: 400ms;
+  animation-fill-mode: forwards;
+}
+
+.modal__wrapper.closing {
+  animation-name: modalclose;
 }
 
 .modal__body {
