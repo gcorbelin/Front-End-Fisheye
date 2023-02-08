@@ -1,8 +1,12 @@
 /* eslint-disable import/extensions */
 import { getKeyboardFocusableElements, setFocusTrap } from "./focus.js";
 
-function modalForm(photographer) {
-  const { name } = photographer;
+/**
+ * @description Handle form modal creation/deletion for a specified photographer
+ * @param {String} photographerName Photographer's name
+ */
+function modalForm(photographerName) {
+  const name = photographerName;
 
   const { body } = document;
   const content = document.getElementById("js-modal-page");
@@ -11,42 +15,47 @@ function modalForm(photographer) {
   let isModalOpened = false;
 
   /**
-   * Hide modal
+   * @description Close modal, then remove from DOM and lastly remove event listeners
    */
   function closeModal() {
     isModalOpened = false;
 
-    // Remove keyboard listener
-    // eslint-disable-next-line no-use-before-define
-    document.removeEventListener("keydown", keyDownEvent);
-
-    // Remove Modal from DOM
+    // Add closing animation then remove Modal from DOM
     const overlay = document.getElementById("js-modal-overlay");
     const modalWrapper = document.getElementById("js-modal");
     if (overlay) {
       window.setTimeout(() => {
+        // Add delay for closing animation duration
         overlay.remove();
       }, 400);
     }
     if (modalWrapper) {
       modalWrapper.classList.add("closing");
       window.setTimeout(() => {
+        // Add delay for closing animation duration
         modalWrapper.remove();
-      }, 800);
+      }, 400);
     }
 
-    // Revert body's state
+    // Allow body overflow
     body.classList.remove("modal-opened");
+
     // Set content accessible to screen readers
     content.removeAttribute("aria-hidden");
+
     // Set focus back to last opener
     lastOpener[lastOpener.length - 1].focus();
     lastOpener.pop();
+
+    // Remove keyboard listener
+    // eslint-disable-next-line no-use-before-define
+    document.removeEventListener("keydown", keyDownEvent);
   }
 
   /**
-   * Handle keyboard input
-   * @param event
+   * @description Handle keyboard input by listenning to keyboard input to close on 'Escape' key and set a focus trap for tabs
+   * @param {KeyboardEvent} event keydown event
+   * @param {HTMLElement} scope DOM Node inside which we should trap focus
    */
   function keyDownEvent(event, scope) {
     if (isModalOpened) {
@@ -74,11 +83,14 @@ function modalForm(photographer) {
   }
 
   /**
-   * Handle form submit
-   * @param event Form values
+   * @description Handle form Submit by printing values in console, then close Modal
+   * @param {SubmitEvent} event Submit form event (to get values)
    */
   function handleFormSubmit(event) {
+    // Prevent page reload
     event.preventDefault();
+
+    // Get form values
     const firstInput = document.getElementById("form-firstname");
     const lastInput = document.getElementById("form-lastname");
     const emailInput = document.getElementById("form-email");
@@ -89,19 +101,28 @@ function modalForm(photographer) {
       email: emailInput.value,
       message: messageInput.value,
     };
+
+    // Log values in console
     console.log(formValues);
+
+    // Close Modal
     closeModal();
   }
 
   /**
-   * Show modal
-   * @param {HTMLElement} opener HTML Element that tgriggered the opening
+   * @description Create overlay and modal HTML content and inject them as direct children of <body>,
+   * save the HTMLElement that triggerd the openning inside a table,
+   * add keyboard event listener, add form submit listener,
+   * set focus on first focusable element
+   * @param {HTMLElement} opener HTML Element that triggered the opening
    */
   function displayModal(opener) {
     // Remove body's scrollbar
     body.classList.add("modal-opened");
+
     // Prevent screen readers from reading everthing else than the modal
     content.setAttribute("aria-hidden", true);
+
     // Save modalOpener
     lastOpener.push(opener);
 
@@ -177,7 +198,7 @@ function modalForm(photographer) {
     `;
 
     const modalContent = `
-      <div class="modal__body" role="document">
+      <div class="modal__content" role="document">
         ${modalHeader + modalBody}
       </div>
     `;
@@ -201,9 +222,9 @@ function modalForm(photographer) {
     focusableElements[0].focus();
 
     // Event listener for closers
-    const modalCloser = document.querySelectorAll("[data-close='modal']");
-    modalCloser.forEach((el) => {
-      el.addEventListener("click", (event) => {
+    const modalClosers = document.querySelectorAll("[data-close='modal']");
+    modalClosers.forEach((modalCloser) => {
+      modalCloser.addEventListener("click", (event) => {
         event.preventDefault();
         closeModal();
       });

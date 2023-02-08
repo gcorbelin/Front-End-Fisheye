@@ -42,7 +42,7 @@ async function init() {
   // Récupère les datas du photographe
   const photographer = await getPhotographerById(photographerId);
   const medias = await getMediaByPhotographerId(photographerId);
-  const modalModel = modalForm(photographer);
+  const modalModel = modalForm(photographer.name);
 
   displayHeader(photographer);
   displayMedias(medias, photographer);

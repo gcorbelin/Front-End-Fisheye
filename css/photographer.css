@@ -129,7 +129,7 @@ body.modal-opened {
   animation-name: modalclose;
 }
 
-.modal__body {
+.modal__content {
   position: relative;
   display: flex;
   flex-direction: column;
