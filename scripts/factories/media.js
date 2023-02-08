@@ -1,5 +1,5 @@
 function mediaFactory(data, photographer) {
-  const { id, photographerId, title, image, video, likes, date, price } = data;
+  const { title, image, video, likes } = data;
   const { name } = photographer;
 
   function getMediaDOM() {
@@ -36,7 +36,7 @@ function mediaFactory(data, photographer) {
     return mediaCard;
   }
 
-  return { id, photographerId, title, image, likes, date, price, getMediaDOM };
+  return { getMediaDOM };
 }
 
 export default mediaFactory;

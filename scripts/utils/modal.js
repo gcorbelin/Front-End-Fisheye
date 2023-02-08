@@ -217,7 +217,7 @@ function modalForm(photographer) {
     isModalOpened = true;
   }
 
-  return { displayModal, closeModal };
+  return { displayModal };
 }
 
 export default modalForm;
