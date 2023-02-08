@@ -1,6 +1,7 @@
-/* global getKeyboardFocusableElements setFocusTrap */
+/* eslint-disable import/extensions */
+import { getKeyboardFocusableElements, setFocusTrap } from "./focus.js";
 
-function modalFactory(photographer) {
+function modalForm(photographer) {
   const { name } = photographer;
 
   const { body } = document;
@@ -16,6 +17,7 @@ function modalFactory(photographer) {
     isModalOpened = false;
 
     // Remove keyboard listener
+    // eslint-disable-next-line no-use-before-define
     document.removeEventListener("keydown", keyDownEvent);
 
     // Remove Modal from DOM
@@ -217,3 +219,5 @@ function modalFactory(photographer) {
 
   return { displayModal, closeModal };
 }
+
+export default modalForm;

@@ -1,4 +1,6 @@
-/* global photographerFactory getPhotographers */
+/* eslint-disable import/extensions */
+import { getPhotographers } from "../api/api.js";
+import photographerFactory from "../factories/photographer.js";
 
 async function displayData(photographers) {
   const photographersSection = document.querySelector(".photographer_section");

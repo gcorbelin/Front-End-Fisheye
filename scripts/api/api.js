@@ -30,3 +30,11 @@ async function getMediaByPhotographerId(photographerId) {
 
   return photographerMedias;
 }
+
+export {
+  getDataFromJSON,
+  getPhotographers,
+  getPhotographerById,
+  getMedias,
+  getMediaByPhotographerId,
+};

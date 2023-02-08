@@ -1,11 +1,15 @@
-/* global photographerHeaderFactory photographerDetailsFactory getPhotographerById mediaFactory modalFactory getMediaByPhotographerId */
+/* eslint-disable import/extensions */
+import { getPhotographerById, getMediaByPhotographerId } from "../api/api.js";
+import mediaFactory from "../factories/media.js";
+import photographerFactory from "../factories/photographer.js";
+import modalForm from "../utils/modal.js";
 
 const currentUrl = new URL(window.location.href);
 const photographerId = currentUrl.searchParams.get("id");
 
 function displayHeader(photographer) {
   const headerSection = document.querySelector(".photographer-header");
-  const photographerModel = photographerHeaderFactory(photographer);
+  const photographerModel = photographerFactory(photographer);
   const userHeaderDOM = photographerModel.getUserHeaderDOM();
   headerSection.appendChild(userHeaderDOM);
 }
@@ -22,7 +26,7 @@ function displayMedias(medias, photographer) {
 
 function displayDetails(medias, photographer) {
   const detailSection = document.querySelector(".photographer-details");
-  const photographerModel = photographerDetailsFactory(photographer);
+  const photographerModel = photographerFactory(photographer);
   const detailsDOM = photographerModel.getUserDetailsDOM();
   detailSection.appendChild(detailsDOM);
 
@@ -38,7 +42,7 @@ async function init() {
   // Récupère les datas du photographe
   const photographer = await getPhotographerById(photographerId);
   const medias = await getMediaByPhotographerId(photographerId);
-  const modalModel = modalFactory(photographer);
+  const modalModel = modalForm(photographer);
 
   displayHeader(photographer);
   displayMedias(medias, photographer);

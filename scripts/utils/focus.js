@@ -50,3 +50,5 @@ function setFocusTrap(event, scope = document) {
     }
   }
 }
+
+export { getKeyboardFocusableElements, setFocusTrap };

@@ -38,3 +38,5 @@ function mediaFactory(data, photographer) {
 
   return { id, photographerId, title, image, likes, date, price, getMediaDOM };
 }
+
+export default mediaFactory;
