@@ -28,12 +28,30 @@
   cursor: pointer;
 }
 
+.sorter {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 23px;
+}
+
+.sorter select {
+  padding: 20px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #901c1c;
+  color: #fff;
+}
+
 .photographer-medias {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px 7.66%;
   align-items: flex-start;
-  padding: 100px 0;
+  padding: 50px 0;
 }
 
 /* Photographer's medias */
@@ -58,6 +76,7 @@
 .media__body {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   padding: 10px 0;
 }

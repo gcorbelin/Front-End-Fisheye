@@ -32,11 +32,22 @@
       </header>
       <main id="main">
         <div class="container">
-          <div class="photographer-header"></div>
-          <div class="photographer-medias"></div>
-          <div class="photographer-details"></div>
+          <section class="photographer-header"></section>
+          <form class="sorter">
+            <label for="media-sort">Trier par</label>
+            <select name="media-sort" id="media-sort">
+              <option value="popularity" selected>Popularité</option>
+              <option value="date">Date</option>
+              <option value="title">Titre</option>
+            </select>
+          </form>
+          <section
+            class="photographer-medias"
+            aria-label="Réalisation du photographe"
+          ></section>
         </div>
       </main>
+      <aside class="photographer-details"></aside>
     </div>
     <script src="/scripts/pages/photographer.js" type="module"></script>
   </body>
