@@ -3,6 +3,7 @@ import { getPhotographerById, getMediaByPhotographerId } from "../api/api.js";
 import mediaFactory from "../factories/media.js";
 import photographerFactory from "../factories/photographer.js";
 import modalForm from "../utils/modal.js";
+import lightbox from "../utils/lightbox.js";
 
 const currentUrl = new URL(window.location.href);
 const photographerId = currentUrl.searchParams.get("id");
@@ -47,6 +48,16 @@ async function init() {
   displayHeader(photographer);
   displayMedias(medias, photographer);
   displayDetails(medias, photographer);
+
+  const lightboxTogglers = document.querySelectorAll(".media__header");
+  lightboxTogglers.forEach((lightboxToggler) => {
+    lightboxToggler.addEventListener("click", (event) => {
+      event.preventDefault();
+      const mediaId = lightboxToggler.getAttribute("data-id");
+      const lightboxModel = lightbox(mediaId, photographer, medias);
+      lightboxModel.displayLightbox(lightboxToggler);
+    });
+  });
 
   const contactButton = document.querySelector(".header__contact-btn");
   contactButton.addEventListener("click", (event) => {
