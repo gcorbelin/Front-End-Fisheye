@@ -15,7 +15,7 @@ function mediaFactory(data, photographer) {
     let media = "";
     if (image) {
       media += `
-        <button type="button" class="media__header media__header--image" title="Ouvrir l'image en mode gallerie">
+        <button type="button" class="media__header media__header--image" aria-label="Ouvrir l'image en mode gallerie">
             <img src="/assets/photographers/${
               name.split(" ")[0]
             }/${image}" class="media__img" alt="${title}">
@@ -23,7 +23,7 @@ function mediaFactory(data, photographer) {
       `;
     } else {
       media += `
-        <button type="button" class="media__header media__header--video" title="Ouvrir l'image en mode gallerie">
+        <button type="button" class="media__header media__header--video" aria-label="Ouvrir la vidéo en mode gallerie">
           <video class="media__img">
             <source src="/assets/photographers/${
               name.split(" ")[0]
@@ -35,12 +35,13 @@ function mediaFactory(data, photographer) {
     media += `
         <div class="media__body">
             <h2 class="media__name">${title}</h2>
-            <button type="button" class="media__likes" title="${
+            <button type="button" class="media__likes" aria-label="${
               trueLiked ? "Cliquer pour retirer le like" : "Cliquer pour liker"
             }">
-                <span class="js-likes-counter">${calculatedLikes}</span> <span class="sr-only">likes</span><i class="${
-      trueLiked ? "fa" : "fa-regular"
-    } fa-heart js-like-icon" aria-hidden="true"></i>
+                <span class="js-likes-counter">${calculatedLikes}</span>
+                <i class="${
+                  trueLiked ? "fa" : "fa-regular"
+                } fa-heart js-like-icon" aria-hidden="true" role="img" aria-label="likes"></i>
             </button>
         </div>
       `;

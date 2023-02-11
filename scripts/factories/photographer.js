@@ -9,8 +9,8 @@ function photographerFactory(data) {
     const photographerCard = document.createElement("article");
     photographerCard.classList.add("photographer");
     const photographer = `
-      <a href="/photographer.html?id=${id}" title="Voir la fiche" class="photographer__link">
-        <img src="${picture}" class="photographer__img" alt="Avatar de ${name}">
+      <a href="/photographer.html?id=${id}" title="Voir la page dédiée" class="photographer__link">
+        <img src="${picture}" class="photographer__img" alt="">
         <h2 class="photographer__name">${name}</h2>
       </a>
       <address class="photographer__address">${address}</address>
@@ -32,7 +32,7 @@ function photographerFactory(data) {
       <blockquote class="header__quote photographer__quote">${tagline}</blockquote>
     </div>
     <div class="header__contact">
-      <button class="header__contact-btn" data-open="modal">
+      <button type="button" class="header__contact-btn" data-open="modal">
         Contactez-moi
       </button>
     </div>
@@ -48,7 +48,8 @@ function photographerFactory(data) {
     photographerDetails.classList.add("details");
     const details = `
       <div class="details__likes">
-          <span class="details__likes-counter"></span> <i class="fa fa-heart" aria-hidden="true"></i>
+          <span class="details__likes-counter"></span>
+          <i class="fa fa-heart" aria-hidden="true" role="img" aria-label="likes cumulés"></i>
       </div>
       <div class="details__price">${daily}</div>
     `;

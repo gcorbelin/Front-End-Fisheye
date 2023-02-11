@@ -151,6 +151,7 @@ function modalForm(photographerName) {
           title="Fermer"
           data-close="modal"
         >
+          <span class="sr-only">Fermer</span>
           <i class="fa fa-times" aria-hidden="true"></i>
         </button>
       </header>

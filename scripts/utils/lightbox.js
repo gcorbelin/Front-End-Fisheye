@@ -97,19 +97,19 @@ function lightbox(mediaId, photographer, medias) {
       <div class="lightbox__prev">
         <button type="button" id="js-lightbox-nav-prev" class="js-lightbox-nav lightbox__btn" data-goto="${
           index - 1 < 0 ? medias.length - 1 : index - 1
-        }">
+        }" title="Afficher le média précédent">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
           <span class="sr-only">Afficher le média précédent</span>
-          <i class="fa fa-chevron-left" aria-hidden="true" title="Afficher le média précédent"></i>
         </button>
       </div>
     `;
     const lightboxNext = `
-      <div class="lightbox__Next">
+      <div class="lightbox__next">
         <button type="button" id="js-lightbox-nav-next" class="js-lightbox-nav lightbox__btn" data-goto="${
           index + 1 > medias.length - 1 ? 0 : index + 1
-        }">
+        }" title="Afficher le média suivant">
           <span class="sr-only">Afficher le média suivant</span>
-          <i class="fa fa-chevron-right" aria-hidden="true" title="Afficher le média suivant"></i>
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </button>
       </div>
     `;
@@ -203,6 +203,7 @@ function lightbox(mediaId, photographer, medias) {
           title="Fermer"
           data-close="lightbox"
         >
+          <span class="sr-only">Fermer</span>
           <i class="fa fa-times" aria-hidden="true"></i>
         </button>
       </header>
