@@ -65,12 +65,14 @@
   background: none;
   cursor: pointer;
   border-radius: 5px;
+  aspect-ratio: 350 / 300;
   overflow: hidden;
 }
 
 .media__img {
   object-fit: cover;
-  aspect-ratio: 350 / 300;
+  width: 100%;
+  height: 100%;
 }
 
 .media__body {
