@@ -50,6 +50,10 @@ function displayDetails(medias, photographer) {
   let likesCounter = 0;
   medias.forEach((media) => {
     likesCounter += media.likes;
+    const isLiked = localStorage.getItem(media.id);
+    if (isLiked && isLiked === "true") {
+      likesCounter += 1;
+    }
   });
   const likesDOM = document.querySelector(".details__likes-counter");
   likesDOM.innerHTML = likesCounter;
@@ -65,7 +69,9 @@ function bindLightbox(medias, photographer) {
   lightboxTogglers.forEach((lightboxToggler) => {
     lightboxToggler.addEventListener("click", (event) => {
       event.preventDefault();
-      const mediaId = lightboxToggler.getAttribute("data-id");
+      const mediaId = lightboxToggler
+        .closest("article")
+        .getAttribute("data-id");
       const lightboxModel = lightbox(mediaId, photographer, medias);
       lightboxModel.displayLightbox(lightboxToggler);
     });
@@ -86,6 +92,46 @@ function bindContactModal(name) {
 }
 
 /**
+ * @description Add event listener to each media's like button
+ * @param {Array} medias Array of photographer's medias
+ */
+function bindLikeButtons() {
+  const likeButtons = document.querySelectorAll(".media__likes");
+  likeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mediaId = btn.closest("article").getAttribute("data-id");
+      let wasLiked = localStorage.getItem(mediaId);
+      // Display new likes
+      const btnLikesDOM = btn.querySelector(".js-likes-counter");
+      const likesDOM = document.querySelector(".details__likes-counter");
+      const iconDOM = btn.querySelector(".js-like-icon");
+      let btnLikes = parseInt(btnLikesDOM.innerHTML, 10);
+      let totalLikes = parseInt(likesDOM.innerHTML, 10);
+      switch (wasLiked) {
+        case "true":
+          btnLikes -= 1;
+          totalLikes -= 1;
+          iconDOM.classList.replace("fa", "fa-regular");
+          break;
+        case null:
+        case "false":
+          btnLikes += 1;
+          totalLikes += 1;
+          iconDOM.classList.replace("fa-regular", "fa");
+          break;
+        default:
+          break;
+      }
+      btnLikesDOM.innerHTML = btnLikes;
+      likesDOM.innerHTML = totalLikes;
+      // Change local storage value
+      wasLiked = wasLiked === "true";
+      localStorage.setItem(mediaId, !wasLiked);
+    });
+  });
+}
+
+/**
  * @description Add event listener to select element for sorting medias
  * @param {Array} medias Array of photographer's medias
  * @param {Object} photographer Photographer's infos
@@ -96,6 +142,7 @@ function bindSorter(medias, photographer) {
     const newMedias = await sorter(medias, sorterSelect.value);
     displayMedias(newMedias.data, photographer);
     bindLightbox(newMedias.data, photographer);
+    bindLikeButtons();
   });
 }
 
@@ -111,6 +158,7 @@ async function init() {
 
   // Add listeners
   bindLightbox(orderedMedias.data, photographer);
+  bindLikeButtons();
   bindContactModal();
   bindSorter(medias, photographer);
 }

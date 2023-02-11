@@ -1,14 +1,21 @@
 function mediaFactory(data, photographer) {
   const { id, title, image, video, likes } = data;
   const { name } = photographer;
+  let calculatedLikes = likes;
+  const isLiked = localStorage.getItem(id);
+  const trueLiked = isLiked && isLiked === "true";
+  if (trueLiked) {
+    calculatedLikes += 1;
+  }
 
   function getMediaDOM() {
     const mediaCard = document.createElement("article");
     mediaCard.classList.add("media");
+    mediaCard.setAttribute("data-id", id);
     let media = "";
     if (image) {
       media += `
-        <button type="button" class="media__header media__header--image" data-id="${id}" title="Ouvrir l'image en mode gallerie">
+        <button type="button" class="media__header media__header--image" title="Ouvrir l'image en mode gallerie">
             <img src="/assets/photographers/${
               name.split(" ")[0]
             }/${image}" class="media__img" alt="${title}">
@@ -16,7 +23,7 @@ function mediaFactory(data, photographer) {
       `;
     } else {
       media += `
-        <button type="button" class="media__header media__header--video" data-id="${id}" title="Ouvrir l'image en mode gallerie">
+        <button type="button" class="media__header media__header--video" title="Ouvrir l'image en mode gallerie">
           <video class="media__img">
             <source src="/assets/photographers/${
               name.split(" ")[0]
@@ -28,9 +35,13 @@ function mediaFactory(data, photographer) {
     media += `
         <div class="media__body">
             <h2 class="media__name">${title}</h2>
-            <div class="media__likes">
-                ${likes} <span class="sr-only">likes</span><i class="fa fa-heart" aria-hidden="true"></i>
-            </div>
+            <button type="button" class="media__likes" title="${
+              trueLiked ? "Cliquer pour retirer le like" : "Cliquer pour liker"
+            }">
+                <span class="js-likes-counter">${calculatedLikes}</span> <span class="sr-only">likes</span><i class="${
+      trueLiked ? "fa" : "fa-regular"
+    } fa-heart js-like-icon" aria-hidden="true"></i>
+            </button>
         </div>
       `;
     mediaCard.innerHTML = media;
