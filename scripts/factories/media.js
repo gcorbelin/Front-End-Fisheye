@@ -16,7 +16,7 @@ function mediaFactory(data, photographer) {
     if (image) {
       media += `
         <button type="button" class="media__header media__header--image" aria-label="Ouvrir l'image en mode gallerie">
-            <img src="/assets/photographers/${
+            <img src="/assets/photographers/thumbnails/${
               name.split(" ")[0]
             }/${image}" class="media__img" alt="${title}">
         </button>
