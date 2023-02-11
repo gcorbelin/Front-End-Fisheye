@@ -135,7 +135,7 @@ function modalForm(photographerName) {
     modalOverlay.innerHTML = '<div class="sr-only">Fermer</div>';
 
     // Create modal
-    const modal = document.createElement("dialog");
+    const modal = document.createElement("div");
     modal.setAttribute("id", "js-modal");
     modal.setAttribute("role", "dialog");
     modal.setAttribute("aria-labelledby", "modal-header");

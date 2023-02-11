@@ -188,7 +188,7 @@ function lightbox(mediaId, photographer, medias) {
     lastOpener.push(opener);
 
     // Create lightbox
-    const lightboxDOM = document.createElement("dialog");
+    const lightboxDOM = document.createElement("div");
     lightboxDOM.setAttribute("id", "js-lightbox");
     lightboxDOM.setAttribute("role", "dialog");
     lightboxDOM.setAttribute("aria-label", "Gallerie d'image");

@@ -274,6 +274,7 @@ body.modal-opened {
   margin: 0 auto;
   padding: 0;
   border: 0;
+  background-color: #fff;
   overflow: hidden;
   z-index: 2;
 
