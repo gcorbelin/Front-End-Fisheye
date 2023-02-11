@@ -179,7 +179,7 @@ function modalForm(photographerName) {
         <div class="form__group">
           <label class="form__label" for="form-email">Email</label>
           <input
-            type="text"
+            type="email"
             name="form-email"
             id="form-email"
             class="form__input"

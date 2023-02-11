@@ -1,3 +1,9 @@
+/**
+ * @description Media factory
+ * @param {Object} data Media infos
+ * @param {Object} photographer Photographer infos
+ * @returns utility functions
+ */
 function mediaFactory(data, photographer) {
   const { id, title, image, video, likes } = data;
   const { name } = photographer;
@@ -8,6 +14,10 @@ function mediaFactory(data, photographer) {
     calculatedLikes += 1;
   }
 
+  /**
+   * Construct media card
+   * @returns Template for media card
+   */
   function getMediaDOM() {
     const mediaCard = document.createElement("article");
     mediaCard.classList.add("media");

@@ -146,6 +146,9 @@ function bindSorter(medias, photographer) {
   });
 }
 
+/**
+ * Init
+ */
 async function init() {
   // Récupère les datas du photographe
   const photographer = await getPhotographerById(photographerId);

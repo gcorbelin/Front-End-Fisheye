@@ -1,3 +1,8 @@
+/**
+ * Photographer Factory
+ * @param {Object} data Photographer's data
+ * @returns utility functions
+ */
 function photographerFactory(data) {
   const { id, name, portrait, city, country, tagline, price } = data;
 
@@ -5,6 +10,10 @@ function photographerFactory(data) {
   const address = `${city}, ${country}`;
   const daily = `${price}/jour`;
 
+  /**
+   * Construct Photographer card
+   * @returns Template for Photographer card
+   */
   function getUserCardDOM() {
     const photographerCard = document.createElement("article");
     photographerCard.classList.add("photographer");
@@ -22,6 +31,10 @@ function photographerFactory(data) {
     return photographerCard;
   }
 
+  /**
+   * Construct Photographer Header
+   * @returns Template for Photographer header
+   */
   function getUserHeaderDOM() {
     const photographerHeader = document.createElement("div");
     photographerHeader.classList.add("header");
@@ -43,6 +56,10 @@ function photographerFactory(data) {
     return photographerHeader;
   }
 
+  /**
+   * Construct Photographer details
+   * @returns Template for Photographer details
+   */
   function getUserDetailsDOM() {
     const photographerDetails = document.createElement("div");
     photographerDetails.classList.add("details");

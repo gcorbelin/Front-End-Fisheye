@@ -1,3 +1,9 @@
+/**
+ * @description Order medias
+ * @param {Array} data Array of Medias objects
+ * @param {String} orderBy Value of the "Order by" select
+ * @returns Array of ordered medias
+ */
 async function sorter(data, orderBy) {
   if (orderBy === "popularity") {
     const result = {
