@@ -5,6 +5,8 @@ import photographerFactory from "../factories/photographer.js";
 import modalForm from "../utils/modal.js";
 import lightbox from "../utils/lightbox.js";
 import sorter from "../utils/sorter.js";
+import likesSubject from "../likes/subject.js";
+import totalLikesObserver from "../likes/totalLikes.js";
 
 const currentUrl = new URL(window.location.href);
 const photographerId = currentUrl.searchParams.get("id");
@@ -96,37 +98,33 @@ function bindContactModal(name) {
  * @param {Array} medias Array of photographer's medias
  */
 function bindLikeButtons() {
+  const likes = likesSubject();
+  const likesCounter = totalLikesObserver();
+  likes.subscribe(likesCounter);
+
   const likeButtons = document.querySelectorAll(".media__likes");
   likeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const mediaId = btn.closest("article").getAttribute("data-id");
-      let wasLiked = localStorage.getItem(mediaId);
-      // Display new likes
-      const btnLikesDOM = btn.querySelector(".js-likes-counter");
-      const likesDOM = document.querySelector(".details__likes-counter");
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      const countDOM = btn.querySelector(".js-likes-counter");
       const iconDOM = btn.querySelector(".js-like-icon");
-      let btnLikes = parseInt(btnLikesDOM.innerHTML, 10);
-      let totalLikes = parseInt(likesDOM.innerHTML, 10);
-      switch (wasLiked) {
-        case "true":
-          btnLikes -= 1;
-          totalLikes -= 1;
-          iconDOM.classList.replace("fa", "fa-regular");
-          break;
-        case null:
-        case "false":
-          btnLikes += 1;
-          totalLikes += 1;
-          iconDOM.classList.replace("fa-regular", "fa");
-          break;
-        default:
-          break;
+      let count = parseInt(countDOM.innerHTML, 10);
+      let action = "";
+      if (btn.classList.contains("liked")) {
+        btn.classList.remove("liked");
+        btn.setAttribute("aria-label", "Cliquer pour liker");
+        iconDOM.classList.replace("fa", "fa-regular");
+        count -= 1;
+        action = "DESC";
+      } else {
+        btn.classList.add("liked");
+        btn.setAttribute("aria-label", "Cliquer pour retirer le like");
+        iconDOM.classList.replace("fa-regular", "fa");
+        count += 1;
+        action = "INC";
       }
-      btnLikesDOM.innerHTML = btnLikes;
-      likesDOM.innerHTML = totalLikes;
-      // Change local storage value
-      wasLiked = wasLiked === "true";
-      localStorage.setItem(mediaId, !wasLiked);
+      countDOM.innerHTML = count;
+      likes.fire(action);
     });
   });
 }

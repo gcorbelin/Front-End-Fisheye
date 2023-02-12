@@ -7,12 +7,6 @@
 function mediaFactory(data, photographer) {
   const { id, title, image, video, likes } = data;
   const { name } = photographer;
-  let calculatedLikes = likes;
-  const isLiked = localStorage.getItem(id);
-  const trueLiked = isLiked && isLiked === "true";
-  if (trueLiked) {
-    calculatedLikes += 1;
-  }
 
   /**
    * Construct media card
@@ -45,13 +39,9 @@ function mediaFactory(data, photographer) {
     media += `
         <div class="media__body">
             <h2 class="media__name">${title}</h2>
-            <button type="button" class="media__likes" aria-label="${
-              trueLiked ? "Cliquer pour retirer le like" : "Cliquer pour liker"
-            }">
-                <span class="js-likes-counter">${calculatedLikes}</span>
-                <i class="${
-                  trueLiked ? "fa" : "fa-regular"
-                } fa-heart js-like-icon" aria-hidden="true" role="img" aria-label="likes"></i>
+            <button type="button" class="media__likes" aria-label="Cliquer pour liker">
+                <span class="js-likes-counter">${likes}</span>
+                <i class="fa-regular fa-heart js-like-icon" aria-hidden="true" role="img" aria-label="likes"></i>
             </button>
         </div>
       `;
