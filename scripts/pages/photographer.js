@@ -160,7 +160,7 @@ async function init() {
   // Add listeners
   bindLightbox(medias, photographer);
   bindLikeButtons();
-  bindContactModal();
+  bindContactModal(photographer.name);
   bindSorter(medias, photographer);
 }
 
