@@ -137,9 +137,9 @@ function bindLikeButtons() {
 function bindSorter(medias, photographer) {
   const sorterSelect = document.getElementById("media-sort");
   sorterSelect.addEventListener("change", async () => {
-    const newMedias = await sorter(medias, sorterSelect.value);
-    displayMedias(newMedias.data, photographer);
-    bindLightbox(newMedias.data, photographer);
+    sorter(medias, sorterSelect.value);
+    displayMedias(medias, photographer);
+    bindLightbox(medias, photographer);
     bindLikeButtons();
   });
 }
@@ -151,14 +151,14 @@ async function init() {
   // Récupère les datas du photographe
   const photographer = await getPhotographerById(photographerId);
   const medias = await getMediaByPhotographerId(photographerId);
-  const orderedMedias = await sorter(medias, "popularity");
+  sorter(medias, "popularity");
 
   displayHeader(photographer);
-  displayMedias(orderedMedias.data, photographer);
+  displayMedias(medias, photographer);
   displayDetails(medias, photographer);
 
   // Add listeners
-  bindLightbox(orderedMedias.data, photographer);
+  bindLightbox(medias, photographer);
   bindLikeButtons();
   bindContactModal();
   bindSorter(medias, photographer);
