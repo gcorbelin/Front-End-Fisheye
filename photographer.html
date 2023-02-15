@@ -37,18 +37,17 @@
       <main id="main">
         <div class="container">
           <section class="photographer-header"></section>
-          <form class="sorter">
-            <label for="media-sort">Trier par</label>
-            <select name="media-sort" id="media-sort">
-              <option value="popularity" selected>Popularité</option>
-              <option value="date">Date</option>
-              <option value="title">Titre</option>
-            </select>
-          </form>
-          <section
-            class="photographer-medias"
-            aria-label="Réalisation du photographe"
-          ></section>
+          <section aria-label="Réalisations du photographe">
+            <form class="sorter">
+              <label for="media-sort">Trier par</label>
+              <select name="media-sort" id="media-sort">
+                <option value="popularity" selected>Popularité</option>
+                <option value="date">Date</option>
+                <option value="title">Titre</option>
+              </select>
+            </form>
+            <div class="photographer-medias"></div>
+          </section>
         </div>
       </main>
       <aside class="photographer-details"></aside>
