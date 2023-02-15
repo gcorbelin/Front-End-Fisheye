@@ -118,7 +118,7 @@ function lightbox(mediaId, photographer, medias) {
       lightboxMedia += `
         <img src="/assets/photographers/${name.split(" ")[0]}/${
         media.image
-      }" alt="">
+      }" alt="${media.title}">
         <h2 class="lightbox__title">${media.title}</h2>
       `;
     } else {
